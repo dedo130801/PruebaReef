@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>	
+		<title>ReefTrace</title>
+		<link rel="stylesheet" href="/knockout/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/knockout/css/bootstrap.css">
+		<script   src="https://code.jquery.com/jquery-3.1.0.js"   integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="   crossorigin="anonymous"></script>
+		<script type="text/javascript">			
+			$(document).ready(
+				function dealModel() {
+					var self = this;
+					self.records = ko.observableArray([]);
+
+					$.getJSON("http://www.reeftrace.local/aquariums", function(data){
+						self.records(data);
+					})
+
+					ko.applyBindings(new dealModel());
+				} 	
+			);
+		</script>
+	</head>
+	<body>
+
+	<table data-bind= "foreach: records">
+		<tr>
+			<td data-bind="text: name"></td>
+			<td data-bind="text: description"></td>
+		</tr>
+	</table>
+
+	<form data-bind="submit: addAquarium">
+	    Add task: <input data-bind="value: newTaskText" placeholder="What needs to be done?" />
+	    <button type="submit">Add</button>
+	</form>
+
+	<script type="text/javascript" src="js/jquery-1.12.1.js"></script>
+	<script type="text/javascript" src="js/knockout-3.4.0.js"></script>
+	<script type="text/javascript">
+
+	function AppViewModel(){
+		var self = this;
+		
+	}
+	$(function() {
+		ko.applyBindings(new AppViewModel());
+	});
+	</script>
+
+	</body>
+</html>

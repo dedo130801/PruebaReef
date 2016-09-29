@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>ReefTrace</title>
+		<script   src="https://code.jquery.com/jquery-3.1.0.js"   integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="   crossorigin="anonymous"></script>
+	</head>
+
+	<body>
+		<h1>Menu</h1>
+		<ul id="main_menu">
+		</ul>
+
+		<div>
+			<label for="username">Username: </label>
+			<input id="username" type="text">
+			<label for="password">Password: </label>
+			<input id="password" type="password">
+			<button id="login" type="button">Login</button>
+		</div>
+
+		<div id="content">
+			
+		</div>
+
+		<script>
+			$("#login").click(
+				function () {
+					var username = $("#username").val();
+					var password = $("#password").val();
+					var user = '{"username": "'+username+'","password":"'+password+'"}';
+					$.ajax({
+						url: "http://www.reeftrace.local/test/user/login",
+						type: "POST",
+						datatype:'json',
+						contentType: "application/json",
+						data:user,
+						success: 
+							function(data){
+								alert(data['token']);
+								document.location.href = "http://www.reeftrace.local/app/aquariums_list.html";	
+							},
+						error: function(XMLHttpRequest, textStatus, errorThrown) { 
+				               alert("Error: " + errorThrown); 
+				            }
+
+					});
+
+				}
+			);
+		</script>
+	</body>
+</html>

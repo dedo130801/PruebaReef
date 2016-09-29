@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>	
+		<title>ReefTrace</title>
+		<link rel="stylesheet" href="/knockout/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/knockout/css/bootstrap.css">
+		<script   src="https://code.jquery.com/jquery-3.1.0.js"   integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="   crossorigin="anonymous"></script>
+		<script type="text/javascript">			
+			$(document).ready(
+				function () {				
+					alert("hola");
+					$.ajax({
+						url: "http://www.reeftrace.local/aquariums",
+						method: "get"    
+					}).done(
+						function(data) {
+							var ulNode = $("#main_menu");
+							$.map(data.aquariums, 
+								function(v,i){
+									ulNode.append("<li>"+v.aquarium.title+"</li>");
+								}
+							);
+						}
+					);
+				} 	
+			);
+		</script>
+	</head>
+	<body>
+
+	<div id="main_menu">
+	</div>
+
+	<form data-bind="submit: addAquarium">
+	    Add task: <input data-bind="value: newTaskText" placeholder="What needs to be done?" />
+	    <button type="submit">Add</button>
+	</form>
+
+	<script type="text/javascript" src="js/jquery-1.12.1.js"></script>
+	<script type="text/javascript" src="js/knockout-3.4.0.js"></script>
+	<script type="text/javascript">
+
+	function AppViewModel(){
+		var self = this;
+		this.firstName=ko.observable("Dian");
+		this.lastName=ko.observable("Díaz");
+		this.tareas = [{ title: "EC3", priority: 3},
+						{title:"ED4", priority:5},
+						{title:"EP2", priority: 10}];
+	}
+	$(function() {
+		//alert("Funciona 8|");
+		
+		ko.applyBindings(new AppViewModel());
+	});
+	</script>
+	
+	</body>
+</html>
